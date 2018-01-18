@@ -17,7 +17,7 @@ long rnd;
 
 // Serial Interval
 byte Ableseintervall;
-byte Ai = 9600; //ms Ableseintervall
+int Ai = 9600; //ms Ableseintervall
 //      = 10000;
 
 // Data Frequency f
