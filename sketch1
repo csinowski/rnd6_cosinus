@@ -9,192 +9,229 @@ Zum Schluss erfragt eine Schleife um herauszufinden, was gerade dargestellt oder
 Der Sketch verwendet 3582 Bytes (11%) des Programmspeicherplatzes. Das Maximum sind 32256 Bytes.
 Globale Variablen verwenden 239 Bytes (11%) des dynamischen Speichers, 1809 Bytes für lokale Variablen verbleiben. Das Maximum sind 2048 Bytes.
 
-*/
-#include <SPI.h>
+// Variable Declaration
+int time = 1000; // 3 seconds to have animations waiting, might decrease for better UI
+int buttonPin = 2;
+int buttonState;
+long rnd;
 
-long randNumber;
-byte rndmnmbr = random(randNumber);
-
-// rndmbnmbr = random(randNumber, 1, 6)
-byte in = 0;
-double inByte = 0;
-long outByte = (2, 3); // (0, 0), (0, 1);
-//  int inByte = 0; 
-//  int outByte = 1;
+// Serial Interval
 byte Ableseintervall;
 byte Ai = 9600; //ms Ableseintervall
 //      = 10000;
 
+// Data Frequency f
 int Ablesefrequenz;
 int /*const*/ Af = 9600; // in Baud; Vin
 
-byte possible;
-int Asoons(possible);
-int Asap = 1000;
+// LED Pin Identification
+int LEDpin_0 = 9;
+int LEDpin_1 = 8;
+int LEDpin_2 = 7;
+int LEDpin_3 = 6;
+int LEDpin_4 = 5;
+int LEDpin_5 = 4;
+int LEDpin_6 = 3;
 
-const int buttonPin = 2;
-int buttonState = 0;
-
-int analogeReferenz;
-float Ar = 5.0;
-
-int Status = 0;
-
-int LEDpin_0 = 0;
-int LEDpin_1 = 1;
-int LEDpin_2 = 2;
-int LEDpin_3 = 3;
-int LEDpin_4 = 4;
-int LEDpin_5 = 5;
-int LEDpin_6 = 6;
-// [1..6];
-int /*array*/ Augenzahl = 1 or 2 or 3 or 4 or 5 or 6;
-
-// do { int zufall = random(p) } while p != 8;
-
-int const p = 8;  // 6 + 1 + 1
-// for (p = 1, p++, p <= 6) 
-// { for (p = 6, --p, p = 0) { int dice = random(Augenzahl); }; }
-int /*const*/ ALLEpins = 1 and 2 and 3 and 4 and 5 and 6;
-byte StatusPin;
-
- // int array Augenzahlen()[1, 2, 3, 4, 5, 6]
-word test;
-
-
-void setup() {
-    Serial.available();
-    Serial.begin(Ai);
-    while (!Serial) {
-      Serial.print("Serielle Verbindung wird hergestellt. Bitte warten . . .");
-      delay(420);
-      Serial.flush();
-      Serial.begin(Af);
-    }
-    
-    pinMode(StatusPin, OUTPUT);
-    pinMode(buttonPin, INPUT);
-   
-    pinMode(LEDpin_0, OUTPUT);
-      Serial.write(LEDpin_0);
-      delay(1/p*1000);
-      pinMode(StatusPin, OUTPUT);
-      Serial.write(StatusPin);
-      delay(1/p*1000);
-    pinMode(LEDpin_1, OUTPUT); 
-      Serial.write(LEDpin_1);
-      delay(1/p*1000);
-    pinMode(LEDpin_2, OUTPUT); 
-      Serial.write(LEDpin_2);
-      delay(1/p*1000);
-    pinMode(LEDpin_3, OUTPUT);
-    Serial.write(LEDpin_3);
-      delay(1/p*1000);
-    pinMode(LEDpin_4, OUTPUT);
-    Serial.write(LEDpin_4);
-      Serial.write(LEDpin_4);
-      delay(1/p*1000);
-      Serial.write(LEDpin_4);
-    pinMode(LEDpin_5, OUTPUT);
-      Serial.write(LEDpin_5);
-      delay(1/p*1000);
-    pinMode(LEDpin_6, OUTPUT);
-      Serial.print(LEDpin_6);
-      delay(1/p*1000);
-
-      
-  //    Serial.print(§"TesT : Licht : LED")
-    Serial.println("LEDs initialisiert.");
-    digitalWrite((LEDpin_1, LOW), (LEDpin_4, LOW)); 
-    delay(420);
-    digitalWrite((LEDpin_2, LOW), (LEDpin_5, LOW)); 
-    delay(420);
-    digitalWrite((LEDpin_3, LOW), (LEDpin_6, LOW));
-    delay(420);
-    
-    Asap = (Asap*Ai)/Af;
-}
-
-void loop() {
-  
-  buttonState = digitalRead(buttonPin);
-  if (buttonState == HIGH) {
-  digitalWrite(StatusPin, HIGH);
-  } else {
-  digitalWrite(StatusPin, LOW);
-  }
-  
-  
-  delay(420);
-  delay(420);
-  analogWrite(StatusPin, HIGH);
-  analogWrite(StatusPin, LED_BUILTIN);
+// Initialisation
+void setup()
+{
+  //Serial.available();
   Serial.begin(Ai);
-  Serial.available();
-  Serial.write(LEDpin_0);
-  Serial.write(Augenzahl);
-  random(Augenzahl);
-  digitalWrite((LEDpin_1, HIGH), (LEDpin_3, HIGH));
-  digitalWrite(LEDpin_5, HIGH);
-/* 
-  switch(Augenzahl)
-  { 
-    case 0: digitalWrite(StatusPin, HIGH); delay(p/1000); 
-    case 1: digitalWrite(LEDpin_1, HIGH); delay(p/1000); zeige1();
-    case '2': digitalWrite(LEDpin_2, HIGH); delay(p/1000); zeige2();
-    case '3': digitalWrite(LEDpin_3, HIGH); delay(p/1000); zeige3();
-    case '4': digitalWrite(LEDpin_4, HIGH); delay(p/1000); zeige4();
-    case '5': digitalWrite(LEDpin_5, HIGH); delay(p/1000); zeige5();
-    case 6: digitalWrite(LEDpin_6, HIGH); delay(p/1000); zeige6();
-    default: digitalWrite(ALLEpins, LOW); delay(Asap);
-  }
-*/
-  if (Augenzahl = 1) {
-    digitalWrite(LEDpin_1, HIGH);
-    // loop.delay(Ai);
-    Serial.print("Die Augenzahl ist 1."); 
-  } else { digitalWrite(ALLEpins, LOW); delay(Asap); };
-  while (ALLEpins && LEDpin_6) { ALLEpins, HIGH; delay(600); }
+  pinMode(9, OUTPUT);
+  pinMode(8, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(2, INPUT);
+  pinMode(buttonPin, INPUT); // _PULLUP
   
-  Serial.write(StatusPin);
-  Status = digitalRead(StatusPin);     // read the input pin
-  analogWrite(StatusPin, Status / 4); 
-  delay(p);
-  Serial.write(Status);
-/*
-  int zeige1() {
-  digitalWrite((LEDpin_1, HIGH);
-  }
-  int zeige2() {
-  digitalWrite((LEDpin_1, HIGH), (LEDpin_2, HIGH)); 
-  }
-  int zeige 3() {
-  digitalWrite((LEDpin_1, HIGH), (LEDpin_2, HIGH)); 
-  digitalWrite((LEDpin_3, HIGH);
-  }
-  int zeige4() {
-  digitalWrite((LEDpin_1, HIGH), (LEDpin_2, HIGH)); 
-  digitalWrite((LEDpin_3, HIGH), (LEDpin_4, HIGH)); 
-  }
-  int zeige5() {
-  digitalWrite((LEDpin_1, HIGH), (LEDpin_2, HIGH)); 
-  digitalWrite((LEDpin_3, HIGH), (LEDpin_4, HIGH)); 
-  digitalWrite(LEDpin_5, HIGH);
-  }
-  int zeige6() {
-  digitalWrite((LEDpin_1, HIGH), (LEDpin_2, HIGH)); 
-  digitalWrite((LEDpin_3, HIGH), (LEDpin_4, HIGH)); 
-  digitalWrite((LEDpin_5, HIGH), (LEDpin_6, HIGH));
-  }
+  Serial.println("Test LEDs");
+  digitalWrite(3, HIGH); // Mitte
+  digitalWrite(4, HIGH); // Links unten
+  digitalWrite(5, HIGH); // Mitte unten
+  digitalWrite(6, HIGH); // Rechts unten
+  digitalWrite(7, HIGH); // Rechts oben
+  digitalWrite(8, HIGH); // Mitte oben
+  digitalWrite(9, HIGH); // Links oben
+  delay(100); 			 // Blink
+  digitalWrite(9, LOW);
+  digitalWrite(8, LOW);
+  digitalWrite(7, LOW);
+  digitalWrite(6, LOW);
+  digitalWrite(5, LOW);
+  digitalWrite(4, LOW);
+  digitalWrite(3, LOW);
   
-*/  
-}
-  // double static newPassword;
-  //newPassword = constrain(randNumber, sensorValue, 4);
+  Serial.println("Zähle 1.");
+  digitalWrite(9, HIGH);
+  delay(time);
+  digitalWrite(9, LOW);
+  delay(time);
   
-  // delay(Ai);
+  Serial.println("Zähle 2.");
+  digitalWrite(4, HIGH);
+  digitalWrite(9, HIGH);
+  delay(time);
+  digitalWrite(4, LOW);
+  digitalWrite(9, LOW);
+  delay(time);
+  
+  Serial.println("Zähle 3.");
+  digitalWrite(3, HIGH);
+  digitalWrite(4, HIGH);
+  digitalWrite(7, HIGH);
+  delay(time);
+  digitalWrite(7, LOW);
+  digitalWrite(4, LOW);
+  digitalWrite(3, LOW);
+  delay(time);
+  
+  Serial.println("Zähle 4.");
+  digitalWrite(6, HIGH);
+  digitalWrite(7, HIGH);
+  digitalWrite(4, HIGH);
+  digitalWrite(9, HIGH);
+  delay(time);
+  digitalWrite(9, LOW);
+  digitalWrite(4, LOW);
+  digitalWrite(7, LOW);
+  digitalWrite(6, LOW);
+  delay(time);
+  
+  Serial.println("Zähle 5.");
+  digitalWrite(3, HIGH);
+  digitalWrite(4, HIGH);
+  digitalWrite(6, HIGH);
+  digitalWrite(7, HIGH);
+  digitalWrite(9, HIGH);
+  delay(time);
+  digitalWrite(9, LOW);
+  digitalWrite(7, LOW);
+  digitalWrite(6, LOW);
+  digitalWrite(4, LOW);
+  digitalWrite(3, LOW);
+  delay(time);
+  
+  Serial.println("Zähle 6.");
+  digitalWrite(4, HIGH);
+  digitalWrite(5, HIGH);
+  digitalWrite(6, HIGH);
+  digitalWrite(7, HIGH);
+  digitalWrite(8, HIGH);
+  digitalWrite(9, HIGH);
+  delay(time);
+  digitalWrite(9, LOW); 
+  digitalWrite(8, LOW);
+  digitalWrite(7, LOW);
+  digitalWrite(6, LOW);
+  digitalWrite(5, LOW);
+  digitalWrite(4, LOW);
+  delay(time);
+  
+  Serial.println("Alle LEDs.");
+  digitalWrite(3, HIGH); // Mitte
+  digitalWrite(4, HIGH); // Links unten
+  digitalWrite(5, HIGH); // Mitte unten
+  digitalWrite(6, HIGH); // Rechts unten
+  digitalWrite(7, HIGH); // Rechts oben
+  digitalWrite(8, HIGH); // Mitte oben
+  digitalWrite(9, HIGH); // Links oben
+  delay(time);
+  digitalWrite(9, LOW);
+  digitalWrite(8, LOW);
+  digitalWrite(7, LOW);
+  digitalWrite(6, LOW);
+  digitalWrite(5, LOW);
+  digitalWrite(4, LOW);
+  digitalWrite(3, LOW);
 
- // Serial.println(Augenzahl);
-  // byte neuerWürfel;
-  //  neuerWürfel = constrain(randNumber, Augenzahlen, 6);
-// void Würfeln();
+  delay(time); // Wait for specified millisecond(s)
+  
+  
+  randomSeed(analogRead(2));
+  Serial.begin(Ai);
+  Serial.println("Initialisation abgeschlossen. Zufällige Wiedergabe ...");
+}
+
+// Default mode
+/* 
+    The loop uses the preinitialised pins & functions and runs over them continously.
+    The random function uses as MINIMUM lowerBorder 1 && as MAXIMUM upperBorder 7 to target all 7 LEDs and can be changed manually.
+    Later on a prompt could ask the user to type in the necessary number of lamps & the code could be adapt flexibly.
+    A switch statement is more undefined but quicker than 7 if statements to call the right number to be displayed
+*/
+
+
+void loop()
+{
+  Serial.println("Würfeln ...");
+  buttonState = digitalRead(buttonPin);
+  Serial.println("buttonState");
+  Serial.println(buttonState);
+  if (buttonState == HIGH){
+    rnd = random(1, 7); 
+    switch (rnd) {
+    case 1:
+      digitalWrite(LEDpin_6, HIGH);
+      Serial.println("Zähle 1.");
+      delay (time);
+      break;
+    case 2:
+      digitalWrite(LEDpin_1, HIGH);
+	  digitalWrite(LEDpin_4, HIGH);
+      Serial.println("Zähle 2.");
+      delay (time);
+      break;
+    case 3:
+      digitalWrite(LEDpin_1, HIGH); 
+	  digitalWrite(LEDpin_6, HIGH);
+      digitalWrite(LEDpin_4, HIGH);
+      Serial.println("Zähle 3.");
+      delay (time);
+      break;
+    case 4:
+      digitalWrite (LEDpin_0, HIGH); 
+      digitalWrite (LEDpin_2, HIGH);
+      digitalWrite (LEDpin_5, HIGH); 
+	  digitalWrite (LEDpin_3, HIGH);
+      Serial.println("Zähle 4.");
+      delay (time);
+      break;
+    case 5:  
+	  digitalWrite (LEDpin_0, HIGH); 
+      digitalWrite (LEDpin_2, HIGH);
+      digitalWrite (LEDpin_5, HIGH); 
+	  digitalWrite (LEDpin_3, HIGH);
+	  digitalWrite (LEDpin_6, HIGH);
+      Serial.println("Zähle 5.");
+      delay (time);
+      break;
+   case 6: 
+      digitalWrite(LEDpin_0, HIGH); 
+	  digitalWrite(LEDpin_2, HIGH);
+      digitalWrite(LEDpin_5, HIGH);
+      digitalWrite(LEDpin_3, HIGH);
+      digitalWrite(LEDpin_1, HIGH);
+      digitalWrite(LEDpin_4, HIGH);
+      Serial.println("Zähle 6.");
+      delay (time);
+      break;
+   }
+  }
+  
+  // Display error message after waiting for 10 seconds and shutting off all lamps.
+  delay(10000); // Wait for specified millisecond(s)
+  digitalWrite(2, LOW);
+  digitalWrite(3, LOW);
+  digitalWrite(4, LOW);
+  digitalWrite(5, LOW);
+  digitalWrite(6, LOW);
+  digitalWrite(7, LOW);
+  digitalWrite(8, LOW);
+  digitalWrite(9, LOW);
+  Serial.println("Programm beendet.");
+  Serial.flush();
+}
