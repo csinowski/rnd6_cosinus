@@ -151,7 +151,7 @@ void setup()
   delay(time); // Wait for specified millisecond(s)
   
   
-  randomSeed(analogRead(2));
+  randomSeed(analogRead(0));
   Serial.begin(Ai);
   Serial.println("Initialisation abgeschlossen. Zufällige Wiedergabe ...");
 }
@@ -223,7 +223,7 @@ void loop()
   }
   
   // Display error message after waiting for 10 seconds and shutting off all lamps.
-  delay(10000); // Wait for specified millisecond(s)
+  delay(time); // Wait for specified millisecond(s)
   digitalWrite(2, LOW);
   digitalWrite(3, LOW);
   digitalWrite(4, LOW);
@@ -233,5 +233,6 @@ void loop()
   digitalWrite(8, LOW);
   digitalWrite(9, LOW);
   Serial.println("Programm beendet.");
+  delay(time*2)
   Serial.flush();
 }
